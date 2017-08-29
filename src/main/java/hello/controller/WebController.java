@@ -21,11 +21,11 @@ public class WebController {
         contactService.save(new Contact("Contact1"));
         contactService.save(new Contact("Contact2"));
         contactService.save(new Contact("Contact3"));
-        contactService.save(new Contact("Contact3"));
-        contactService.save(new Contact("Contact3"));
-        contactService.save(new Contact("Contact3"));
-        contactService.save(new Contact("Contact3"));
-        contactService.save(new Contact("Contact3"));
+        contactService.save(new Contact("Contact4"));
+        contactService.save(new Contact("Contact5"));
+        contactService.save(new Contact("Contact6"));
+        contactService.save(new Contact("Contact7"));
+        contactService.save(new Contact("^.*[aei].*$"));
         return "Done";
     }
 
@@ -33,7 +33,7 @@ public class WebController {
     public @ResponseBody String findAll(@RequestParam(value = "nameFilter") String regex) {
         List<Contact> contacts = new LinkedList<Contact>();
         for (Contact contact : contactService.findAllContacts()) {
-            if (contact.getName().matches(regex)) {
+            if (contact.getName().matches(regex) && !contact.getName().equals(regex)) {
                 contacts.add(contact);
             }
         }
