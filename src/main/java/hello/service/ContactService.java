@@ -30,5 +30,8 @@ public class ContactService {
         PageRequest request = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
         return contactRepository.findAll(request).getContent();
     }
+    public void deleteAll(){
+        contactRepository.deleteAll();
+    }
 }
 

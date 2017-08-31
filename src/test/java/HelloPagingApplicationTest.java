@@ -1,5 +1,7 @@
 import hello.HelloPagingApplication;
 import hello.controller.WebController;
+import hello.model.Contact;
+import hello.service.ContactService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +15,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class HelloPagingApplicationTest {
     @Autowired
     private WebController controller;
+    @Autowired
+    private ContactService contactService;
 
     @Test
-        public void contexLoads(){
-            assertThat(controller).isNotNull();
-        }
+    public void contexLoads() {
+        assertThat(controller).isNotNull();
     }
+
+    @Test
+    public void testControllerSearch() {
+        contactService.save(new Contact("test1"));
+        assertThat(controller.findAll("(test)")).isNotEmpty();
+    }
+
+    @Test
+    public void testSearchResultEqualRegexNotReturned(){
+        contactService.deleteAll();
+        contactService.save(new Contact("^.*[aei].*$"));
+        assertThat(controller.findAll("^.*[aei].*$")).isEqualToIgnoringCase("contacts: []");
+    }
+
+    @Test
+
+
+}
 
 

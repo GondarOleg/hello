@@ -17,7 +17,7 @@ public class WebController {
     private ContactService contactService;
 
     @RequestMapping("/save")
-    public String process() {
+    public String save() {
         contactService.save(new Contact("Contact1"));
         contactService.save(new Contact("Contact2"));
         contactService.save(new Contact("Contact3"));
