@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="contacts")
+@Table(name = "contacts")
 public class Contact implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,7 +13,7 @@ public class Contact implements Serializable {
     @Column(name = "name")
     private String name;
 
-    protected Contact(){
+    protected Contact() {
     }
 
     public Contact(String name) {

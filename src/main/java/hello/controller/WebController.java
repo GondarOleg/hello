@@ -30,7 +30,8 @@ public class WebController {
     }
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
-    public @ResponseBody String findAll(@RequestParam(value = "nameFilter") String regex) {
+    public @ResponseBody
+    String findAll(@RequestParam(value = "nameFilter") String regex) {
         List<Contact> contacts = new LinkedList<Contact>();
         for (Contact contact : contactService.findAllContacts()) {
             if (contact.getName().matches(regex) && !contact.getName().equals(regex)) {
@@ -41,7 +42,8 @@ public class WebController {
     }
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public @ResponseBody String viewCustomers(@RequestParam(value = "number") int pageNumber) {
+    public @ResponseBody
+    String viewCustomers(@RequestParam(value = "number") int pageNumber) {
         List<Contact> contacts = contactService.getPage(pageNumber);
         return "contacts: " + new Gson().toJson(contacts);
     }

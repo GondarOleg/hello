@@ -30,15 +30,11 @@ public class HelloPagingApplicationTest {
     }
 
     @Test
-    public void testSearchResultEqualRegexNotReturned(){
+    public void testSearchResultEqualRegexNotReturned() {
         contactService.deleteAll();
         contactService.save(new Contact("^.*[aei].*$"));
         assertThat(controller.findAll("^.*[aei].*$")).isEqualToIgnoringCase("contacts: []");
     }
-
-    @Test
-
-
 }
 
 
