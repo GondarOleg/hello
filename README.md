@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <H1>Test task</H1>
+    <H1>REST service</H1>
 </head>
 <body>
 <p><a href="https://travis-ci.org/GondarOleg/hello"><img
