@@ -2,14 +2,18 @@ package hello.controller;
 
 import com.google.gson.Gson;
 import hello.model.Contact;
+import hello.model.ErrorJson;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import hello.service.ContactService;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/hello")
@@ -44,7 +48,7 @@ public class WebController {
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public @ResponseBody
-    String findByKey(@RequestParam(value = "nameFilter") String regex, @RequestParam(value = "page", required = false) Integer page_num) {
+    String findByKey(@RequestParam(value = "nameFilter") String regex, @RequestParam(value = "page", required = false) Integer page_num) throws Exception {
         int page_number = 1;
         int pages_total = 0;
         int total_record_count = 0;
@@ -53,7 +57,10 @@ public class WebController {
         if (page_num != null) {
             page_number = page_num;
         }
-
+        pages_total = total_record_count/page_size;
+        if (page_number>pages_total){
+            throw new NotFoundException("Page not fount", new NotFoundException("Page index out of range!!!"));
+        }
         return makePaginatedHeader(page_number, total_record_count) + makeJson(page_number, total_record_count);
     }
 
@@ -84,22 +91,17 @@ public class WebController {
                 newLine;
     }
 
-    private String makeJson(int page_number, int total_record_count) {
+    private String makeJson(int page_number, int total_record_count){
         String json = "";
-        int total_pages=total_record_count/page_size;
-        if (page_number * page_size < total_record_count / page_size) {
+        if (page_number * page_size <= total_record_count) {
             json = new Gson().toJson(makeListForJson(contacts,page_number,total_record_count));
-        } else if(page_number<=total_pages){
-            json = new Gson().toJson(makeListForJson(contacts,page_number,total_record_count));
-        }else {
-            json = new Gson().toJson("[{\"Страницы нет!\"}]");
         }
         return json;
     }
 
     private List<Contact> makeListForJson(List<Contact> fullContacts, int page_number, int total_record_count){
         List<Contact> temp = new LinkedList<Contact>();
-        for(int i = page_number*page_size; i<page_number+page_size; i++){
+        for(int i = page_number*page_size; i<=page_number*page_size+page_size; i++){
             temp.add(fullContacts.get(i));
         }
         return temp;

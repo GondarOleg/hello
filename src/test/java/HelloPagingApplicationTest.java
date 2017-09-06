@@ -1,6 +1,7 @@
 import hello.HelloPagingApplication;
 import hello.controller.WebController;
 import hello.model.Contact;
+import hello.model.ErrorJson;
 import hello.service.ContactService;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class HelloPagingApplicationTest {
     }
 
     @Test
-    public void testControllerSearch() {
+    public void testControllerSearch() throws Exception {
 
         assertThat(controller.findByKey("(test)", null)).isNotEmpty();
     }
