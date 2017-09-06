@@ -1,9 +1,11 @@
 package hello.repo;
 
 import hello.model.Contact;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.Repository;
 
 import java.util.List;
 
-public interface ContactRepository extends PagingAndSortingRepository<Contact, Long> {
+public interface ContactRepository extends JpaRepository<Contact, Long> {
 }
