@@ -22,7 +22,7 @@ public class ContactService {
         contactRepository.save(contact);
     }
 
-    public Iterable<Contact> findAllContacts() {
+    public List<Contact> findAllContacts() {
         return contactRepository.findAll();
     }
 
