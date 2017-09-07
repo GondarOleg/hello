@@ -2,23 +2,23 @@ package hello.controller;
 
 import com.google.gson.Gson;
 import hello.model.Contact;
-import hello.model.ErrorJson;
 import javassist.NotFoundException;
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import hello.service.ContactService;
 
-import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/hello")
 public class WebController {
+
+    static final String NEW_LINE = "<br>";
 
     @Autowired
     private ContactService contactService;
@@ -49,26 +49,30 @@ public class WebController {
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public @ResponseBody
-    String findByKey(@RequestParam(value = "nameFilter") String regex, @RequestParam(value = "page", required = false) Integer page_num) throws NotFoundException {
-        int page_number = 1;
-        int pages_total = 0;
+    String findByKey(@RequestParam(value = "nameFilter") String regex, @RequestParam(value = "page", required = false) Integer page_num, HttpServletRequest request) throws NotFoundException {
+        int page_number = 0;
+        int total_pages = 0;
         int total_record_count = 0;
         contacts = searchContacts(regex);
         total_record_count = contacts.size();
-        if (page_num != null) {
-            page_number = page_num;
-        }
 
-        pages_total = total_record_count/page_size;
-        if (page_number>pages_total){
-            throw new NotFoundException("Page not fount", new NotFoundException("Page index out of range!!!"));
+
+        System.out.println(request.getRequestURL());
+        total_pages = (total_record_count % page_size) == 0 ? total_record_count / page_size : total_record_count / page_size + 1;
+        if (page_num != null)
+
+        {
+            if (page_num > total_pages || page_num == 0) {
+                throw new NotFoundException("Page not found", new NotFoundException("Page index out of range!!!"));
+            }
+            page_number = page_num - 1;
         }
-        return makePaginatedHeader(page_number, total_record_count) + makeJson(page_number, total_record_count);
+        return makePaginatedHeader(total_pages) + makeJson(page_number, total_record_count) + makePaginatedFooter(total_pages, page_number, regex, request.getRequestURL().toString());
     }
 
     @RequestMapping("/findall")
     public @ResponseBody
-    List<Contact> findAll(){
+    List<Contact> findAll() {
         return contactService.findAllContacts();
     }
 
@@ -82,32 +86,43 @@ public class WebController {
         return contacts;
     }
 
-    private String makePaginatedHeader(int page_number, int total_record_count) {
+    private String makePaginatedHeader(int total_pages) {
 
-        String newLine = "<br>";
         return "{" +
-                newLine + "\"page_number\": " + page_number +
-                newLine + "\"page_size\": " + page_size +
-                newLine + "\"total_record_count: " + total_record_count + "," +
-                newLine + "\"Contacts: " +
-                newLine;
+                NEW_LINE + "\"meta\": {" +
+                NEW_LINE + "\"total-pages\": " + total_pages +
+                NEW_LINE + " }," +
+                NEW_LINE + "\"Contacts\" :" +
+                NEW_LINE;
     }
 
-    private String makeJson(int page_number, int total_record_count){
+    private String makePaginatedFooter(int total_pages, int page_number, String regex, String url) {
+        page_number++;
+        return NEW_LINE + "\"links\": {" +
+                NEW_LINE + "\"self\": \"" + url + "?nameFilter=" + regex + "&page=" + page_number + "\"" +
+                NEW_LINE + "\"first\": \"" + url + "?nameFilter=" + regex + "&page=1\"" +
+                NEW_LINE + "\"prev\": \"" + url + "?nameFilter=" + regex + "&page=" + ((page_number - 1 == 0 ) ? page_number : (page_number - 1)) + "\"" +
+                NEW_LINE + "\"next\": \"" + url + "?nameFilter=" + regex + "&page=" + ((page_number >= total_pages ) ? page_number : (page_number + 1)) + "\"" +
+                NEW_LINE + "\"last\": \"" + url + "?nameFilter=" + regex + "&page=" + total_pages + "\"";
+    }
+
+
+    private String makeJson(int page_number, int total_record_count) {
         String json = "";
-            json = new Gson().toJson(makeListForJson(contacts,page_number,total_record_count));
+        json = new Gson().toJson(makeListForJson(contacts, page_number, total_record_count));
         return json;
     }
 
-    private List<Contact> makeListForJson(List<Contact> fullContacts, int page_number, int total_record_count){
+    private List<Contact> makeListForJson(List<Contact> fullContacts, int page_number, int total_record_count) {
         List<Contact> temp = new LinkedList<Contact>();
-        int endIndex=0;
-        if(page_number*page_size >= total_record_count){
+        int endIndex = 0;
+        if (page_number * page_size >= total_record_count) {
             endIndex = total_record_count;
-        }else {
-            endIndex = page_number*page_size+page_size;
+        } else {
+            endIndex = page_number * page_size + page_size;
         }
-        for(int i = page_number*page_size; i<endIndex; i++){
+        for (int i = page_number * page_size; i < endIndex; i++) {
+            System.out.println(i);
             temp.add(fullContacts.get(i));
         }
         return temp;
