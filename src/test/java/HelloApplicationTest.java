@@ -4,6 +4,7 @@ import hello.controller.WebController;
 import hello.model.Contact;
 import hello.service.ContactService;
 import javassist.NotFoundException;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,13 +23,12 @@ import static org.junit.Assert.assertTrue;
 
 public class HelloApplicationTest {
 
-    HttpServletRequestForTest requestForTest = new HttpServletRequestForTest();
-
     @Autowired
     private WebController controller;
     @Autowired
     private ContactService contactService;
 
+    HttpServletRequestForTest requestForTest = new HttpServletRequestForTest();
 
     @Before
     public void setUp() {
@@ -59,6 +59,11 @@ public class HelloApplicationTest {
     public void testContactClass() {
         Contact contact = new Contact("test");
         assertThat(contact.getName()).matches("test");
+    }
+
+    @After
+    public void deleteAllTestDataInDB() {
+        contactService.deleteAll();
     }
 }
 

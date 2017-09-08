@@ -2,9 +2,6 @@ package hello.service;
 
 import hello.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import hello.repo.ContactRepository;
 
