@@ -55,12 +55,11 @@ public class WebController {
         int total_record_count = 0;
         contacts = searchContacts(regex);
         total_record_count = contacts.size();
-        if(contacts.size() == 0){
+        if (contacts.size() == 0) {
             return "No contacts found!";
         }
         total_pages = (total_record_count % page_size) == 0 ? total_record_count / page_size : total_record_count / page_size + 1;
-        if (page_num != null)
-        {
+        if (page_num != null) {
             if (page_num > total_pages || page_num == 0) {
                 throw new NotFoundException("Page not found", new NotFoundException("Page index out of range!!!"));
             }
@@ -100,8 +99,8 @@ public class WebController {
         return NEW_LINE + "\"links\": {" +
                 NEW_LINE + "\"self\": \"" + url + "?nameFilter=" + regex + "&page=" + page_number + "\"" +
                 NEW_LINE + "\"first\": \"" + url + "?nameFilter=" + regex + "&page=1\"" +
-                NEW_LINE + "\"prev\": \"" + url + "?nameFilter=" + regex + "&page=" + ((page_number - 1 == 0 ) ? page_number : (page_number - 1)) + "\"" +
-                NEW_LINE + "\"next\": \"" + url + "?nameFilter=" + regex + "&page=" + ((page_number >= total_pages ) ? page_number : (page_number + 1)) + "\"" +
+                NEW_LINE + "\"prev\": \"" + url + "?nameFilter=" + regex + "&page=" + ((page_number - 1 == 0) ? page_number : (page_number - 1)) + "\"" +
+                NEW_LINE + "\"next\": \"" + url + "?nameFilter=" + regex + "&page=" + ((page_number >= total_pages) ? page_number : (page_number + 1)) + "\"" +
                 NEW_LINE + "\"last\": \"" + url + "?nameFilter=" + regex + "&page=" + total_pages + "\"" +
                 NEW_LINE + "}";
     }
