@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/hello")
 public class WebController {
 
-    static final String NEW_LINE = "<br>";
+    static final String NEW_LINE = "\n";
 
     @Autowired
     private ContactService contactService;
