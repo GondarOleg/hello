@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @RestController
-public class ErrorController implements org.springframework.boot.autoconfigure.web.ErrorController {
+public class HelloApplicationErrorController implements org.springframework.boot.autoconfigure.web.ErrorController {
 
     private static final String PATH = "/error";
 
