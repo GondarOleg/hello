@@ -13,8 +13,6 @@ import java.util.List;
 @Service
 public class ContactService {
 
-    private static final int PAGE_SIZE = 5;
-
     @Autowired
     ContactRepository contactRepository;
 
@@ -24,11 +22,6 @@ public class ContactService {
 
     public List<Contact> findAllContacts() {
         return contactRepository.findAll();
-    }
-
-    public List<Contact> getPage(int pageNumber) {
-        PageRequest request = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
-        return contactRepository.findAll(request).getContent();
     }
 
     public void deleteAll() {

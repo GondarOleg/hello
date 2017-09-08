@@ -103,27 +103,26 @@ public class WebController {
                 NEW_LINE + "\"first\": \"" + url + "?nameFilter=" + regex + "&page=1\"" +
                 NEW_LINE + "\"prev\": \"" + url + "?nameFilter=" + regex + "&page=" + ((page_number - 1 == 0 ) ? page_number : (page_number - 1)) + "\"" +
                 NEW_LINE + "\"next\": \"" + url + "?nameFilter=" + regex + "&page=" + ((page_number >= total_pages ) ? page_number : (page_number + 1)) + "\"" +
-                NEW_LINE + "\"last\": \"" + url + "?nameFilter=" + regex + "&page=" + total_pages + "\"";
+                NEW_LINE + "\"last\": \"" + url + "?nameFilter=" + regex + "&page=" + total_pages + "\"" +
+                NEW_LINE + "}";
     }
-
 
     private String makeJson(int page_number, int total_record_count) {
         String json = "";
-        json = new Gson().toJson(makeListForJson(contacts, page_number, total_record_count));
+        json = new Gson().toJson(makeListForJson(page_number, total_record_count));
         return json;
     }
 
-    private List<Contact> makeListForJson(List<Contact> fullContacts, int page_number, int total_record_count) {
+    private List<Contact> makeListForJson(int page_number, int total_record_count) {
         List<Contact> temp = new LinkedList<Contact>();
         int endIndex = 0;
-        if (page_number * page_size >= total_record_count) {
+        if (page_number * page_size + page_size >= total_record_count) {
             endIndex = total_record_count;
         } else {
             endIndex = page_number * page_size + page_size;
         }
         for (int i = page_number * page_size; i < endIndex; i++) {
-            System.out.println(i);
-            temp.add(fullContacts.get(i));
+            temp.add(contacts.get(i));
         }
         return temp;
     }

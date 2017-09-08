@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class HelloPagingApplicationTest {
     @Test
     public void testControllerSearch() throws Exception {
         contactService.save(new Contact("test"));
-        //assertThat(controller.findByKey("(test)",0)).isNotEmpty();
+        assertThat(controller.findByKey("(test)", 1, null )).isNotEmpty();
     }
 
     @Test
