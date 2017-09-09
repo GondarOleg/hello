@@ -17,7 +17,7 @@
     <li> /hello/find_all - search for all records;</li>
     <li> /hello/delete_all - delete all entries.</li>
 </ol>
-<hr>
+<br>
 <p>1. Technologies used</p>
 <ul>
     <li>Java</li>
@@ -33,13 +33,10 @@
     <li>4. Open a command promt, go to folder;</li>
     <li>5. Execute command: vagrant init</li>
     <li>6. In a Vagrantfile replace content:</li>
-    <hr>
     <p>config.vm.box = "hashicorp/precise32"</p>
     <p>config.vm.provision "shell", path: "vagrant_provision.sh"</p>
     <p>config.vm.network "private_network", ip: "192.168.33.10"</p>
-    <hr>
     <li>7. Create a vagrant_provision.sh file under same directory and copy below contents to the file:</li>
-    <hr>
     <p>#!/usr/bin/env bash
     <p>sudo apt-get update</p>
     <p>sudo apt-get install -y apache2</p>
@@ -54,38 +51,22 @@
     <p>sudo apt-get install oracle-java8-installer</p>
     <p>sudo apt-get install -y oracle-java8-set-default</p>
     <p>sudo apt-get install postgres postgresql-client postgresql-contrib phpPgAdmin</p>
-    <hr>
     <li>Set postgres password:</li>
-    <hr>
     <p>$ sudo su </p>
     <p>postgres -c psql </p>
     <p>postgres</p>
     <p>postgres=# </p>
     <p>ALTER USER postgres WITH PASSWORD 'password';</p>
     <p>postgres=# \q</p>
-    <hr>
     <li>Append the following configuration lines to give access to 192.168.33.0/24 network to the pg_hba.conf:</li>
-    <hr>
     host all all 192.168.33.0/24 trust
-    <hr noshade>
     <li>Clone the GIT repository on local drive (from system command prompt):</li>
-    <hr>
     <p>git clone https://github.com/GondarOleg/hello.git</p>
-    <hr>
     <li>Login to Vagrant:</li>
-    <hr>
     <p>vagrant ssh</p>
-    <hr>
     <li>Install a hello application as an init.d service:</li>
-    <hr>
     <p>sudo ln -s /hello/hello.jar /etc/init.d/hello</p>
-    <hr>
-    <li>Start service:
-    <li>
-        <hr>
-        <p>service hello start
-        <p>
-        <hr>
-</ul>
+    <li>Start service:</li>
+    service hello start
 </body>
 </html>
