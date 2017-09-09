@@ -11,8 +11,7 @@
 <p>Supports the following commands:</p>
 <ol>
     <li> /hello/save - save the test data;</li>
-    <li> /hello/contacts?nameFilter=
-        <regex> - search using regular expressions;
+    <li> /hello/contacts?nameFilter=regex - search using regular expressions;
     </li>
     <li> /hello/find_all - search for all records;</li>
     <li> /hello/delete_all - delete all entries.</li>
@@ -33,10 +32,12 @@
     <li>4. Open a command promt, go to folder;</li>
     <li>5. Execute command: vagrant init</li>
     <li>6. In a Vagrantfile replace content:</li>
+    <br>
     <p>config.vm.box = "hashicorp/precise32"</p>
     <p>config.vm.provision "shell", path: "vagrant_provision.sh"</p>
     <p>config.vm.network "private_network", ip: "192.168.33.10"</p>
     <li>7. Create a vagrant_provision.sh file under same directory and copy below contents to the file:</li>
+    <br>
     <p>#!/usr/bin/env bash
     <p>sudo apt-get update</p>
     <p>sudo apt-get install -y apache2</p>
@@ -52,21 +53,27 @@
     <p>sudo apt-get install -y oracle-java8-set-default</p>
     <p>sudo apt-get install postgres postgresql-client postgresql-contrib phpPgAdmin</p>
     <li>Set postgres password:</li>
+    <br>
     <p>$ sudo su </p>
     <p>postgres -c psql </p>
     <p>postgres</p>
     <p>postgres=# </p>
-    <p>ALTER USER postgres WITH PASSWORD 'password';</p>
+    <p>ALTER USER postgres WITH PASSWORD '123';</p>
     <p>postgres=# \q</p>
     <li>Append the following configuration lines to give access to 192.168.33.0/24 network to the pg_hba.conf:</li>
+    <br>
     host all all 192.168.33.0/24 trust
     <li>Clone the GIT repository on local drive (from system command prompt):</li>
+    <br>
     <p>git clone https://github.com/GondarOleg/hello.git</p>
     <li>Login to Vagrant:</li>
+    <br>
     <p>vagrant ssh</p>
     <li>Install a hello application as an init.d service:</li>
+    <br>
     <p>sudo ln -s /hello/hello.jar /etc/init.d/hello</p>
     <li>Start service:</li>
+    <br>
     service hello start
 </body>
 </html>
