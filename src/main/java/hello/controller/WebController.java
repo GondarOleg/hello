@@ -23,7 +23,6 @@ public class WebController {
     @Value("${page_size}")
     private int pageSize;
 
-
     @RequestMapping("/save")
     public HttpStatus save() {
         contactService.save(new Contact("Contact1"));
@@ -34,12 +33,6 @@ public class WebController {
         contactService.save(new Contact("Contact6"));
         contactService.save(new Contact("test"));
         contactService.save(new Contact("^.*[aei].*$"));
-        return HttpStatus.OK;
-    }
-
-    @RequestMapping("/delete_all")
-    public HttpStatus delete() {
-        contactService.deleteAll();
         return HttpStatus.OK;
     }
 
@@ -70,5 +63,10 @@ public class WebController {
         return contactService.findAllContacts();
     }
 
+    @RequestMapping("/delete_all")
+    public HttpStatus delete() {
+        contactService.deleteAll();
+        return HttpStatus.OK;
+    }
 
 }
