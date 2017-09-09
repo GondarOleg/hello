@@ -62,7 +62,7 @@
     <p>postgres=# \q</p>
     <li>Append the following configuration lines to give access to 192.168.33.0/24 network to the pg_hba.conf:</li>
     <br>
-    host all all 192.168.33.0/24 trust
+    <p>host all all 192.168.33.0/24 trust</p>
     <li>Clone the GIT repository on local drive (from system command prompt):</li>
     <br>
     <p>git clone https://github.com/GondarOleg/hello.git</p>
@@ -74,6 +74,6 @@
     <p>sudo ln -s /hello/hello.jar /etc/init.d/hello</p>
     <li>Start service:</li>
     <br>
-    service hello start
+    <p>service hello start</p>
 </body>
 </html>
