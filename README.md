@@ -52,7 +52,7 @@
     <p>sudo apt-get install oracle-java8-installer</p>
     <p>sudo apt-get install -y oracle-java8-set-default</p>
     <p>sudo apt-get install postgres postgresql-client postgresql-contrib phpPgAdmin</p>
-    <li>Set postgres password:</li>
+    <li>8. Set postgres password:</li>
     <br>
     <p>$ sudo su </p>
     <p>postgres -c psql </p>
@@ -60,19 +60,19 @@
     <p>postgres=# </p>
     <p>ALTER USER postgres WITH PASSWORD '123';</p>
     <p>postgres=# \q</p>
-    <li>Append the following configuration lines to give access to 192.168.33.0/24 network to the pg_hba.conf:</li>
+    <li>9. Append the following configuration lines to give access to 192.168.33.0/24 network to the pg_hba.conf:</li>
     <br>
     <p>host all all 192.168.33.0/24 trust</p>
-    <li>Clone the GIT repository on local drive (from system command prompt):</li>
+    <li>10. Clone the GIT repository on local drive (from system command prompt):</li>
     <br>
     <p>git clone https://github.com/GondarOleg/hello.git</p>
-    <li>Login to Vagrant:</li>
+    <li>11. Login to Vagrant:</li>
     <br>
     <p>vagrant ssh</p>
-    <li>Install a hello application as an init.d service:</li>
+    <li>12. Install a hello application as an init.d service:</li>
     <br>
     <p>sudo ln -s /hello/hello.jar /etc/init.d/hello</p>
-    <li>Start service:</li>
+    <li>13. Start service:</li>
     <br>
     <p>service hello start</p>
 </body>
