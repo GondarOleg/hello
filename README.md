@@ -40,10 +40,6 @@
     <br>
     <p>#!/usr/bin/env bash
     <p>sudo apt-get update</p>
-    <p>sudo apt-get install -y apache2</p>
-    <p>sudo apt-get install -y tomcat7</p>
-    <p>sudo apt-get install -y tomcat7-docs</p>
-    <p>sudo apt-get install -y tomcat7-admin</p>
     <p>sudo apt-get install -y git</p>
     <p>sudo apt-get install -y maven</p>
     <p>sudo apt-get install -y software-properties-common python-software-properties</p>
@@ -51,29 +47,29 @@
     <p>sudo apt-get update</p>
     <p>sudo apt-get install oracle-java8-installer</p>
     <p>sudo apt-get install -y oracle-java8-set-default</p>
-    <p>sudo apt-get install postgres postgresql-client postgresql-contrib phpPgAdmin</p>
-    <li>8. Set postgres password:</li>
+    <p>sudo apt-get install postgresql postgresql-client postgresql-contrib</p>
+    <li>8. Set postgres password and create database testdb:</li>
     <br>
-    <p>$ sudo su </p>
-    <p>postgres -c psql </p>
-    <p>postgres</p>
-    <p>postgres=# </p>
-    <p>ALTER USER postgres WITH PASSWORD '123';</p>
+    <p>vagrant ssh</p>
+    <p>su postgres</p>
+    <p>psql</p>
+    <p>ALTER USER postgres WITH PASSWORD 'postgres';</p>
+    <p>CREATE DATABASE testdb;</p>
     <p>postgres=# \q</p>
     <li>9. Append the following configuration lines to give access to 192.168.33.0/24 network to the pg_hba.conf:</li>
     <br>
-    <p>host all all 192.168.33.0/24 trust</p>
-    <li>10. Clone the GIT repository on local drive (from system command prompt):</li>
+    <p>host all all 0.0.0.0/0 trust</p>
+    <li>10. Allow TCP/IP socket, set:</li>
+    <br>
+    <p>listen_addresses='*'</p>
+    <li>11. Clone the GIT repository on local drive (from system command prompt):</li>
     <br>
     <p>git clone https://github.com/GondarOleg/hello.git</p>
-    <li>11. Login to Vagrant:</li>
+    <li>12. Login to Vagrant:</li>
     <br>
     <p>vagrant ssh</p>
-    <li>12. Install a hello application as an init.d service:</li>
+    <li>13. Start application:</li>
     <br>
-    <p>sudo ln -s /hello/hello.jar /etc/init.d/hello</p>
-    <li>13. Start service:</li>
-    <br>
-    <p>service hello start</p>
+    <p>java -jar /vagrant/hello/target/hello-1.0.jar</p>
 </body>
 </html>
