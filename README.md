@@ -56,7 +56,7 @@
     <p>ALTER USER postgres WITH PASSWORD 'postgres';</p>
     <p>CREATE DATABASE testdb;</p>
     <p>postgres=# \q</p>
-    <li>9. Append the following configuration lines to give access to 192.168.33.0/24 network to the pg_hba.conf:</li>
+    <li>9. Append the following configuration lines to give access to all networks to the pg_hba.conf:</li>
     <br>
     <p>host all all 0.0.0.0/0 trust</p>
     <li>10. Allow TCP/IP socket, set:</li>
