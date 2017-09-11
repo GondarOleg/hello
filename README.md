@@ -65,6 +65,7 @@
     <li>11. Clone the GIT repository on local drive (from system command prompt):</li>
     <br>
     <p>git clone https://github.com/GondarOleg/hello.git</p>
+    <li>Create a jar file for the project in your preferred development environment.</li>
     <li>12. Login to Vagrant:</li>
     <br>
     <p>vagrant ssh</p>
