@@ -8,14 +8,10 @@
 <p><a href="https://travis-ci.org/GondarOleg/hello"><img
         src="https://travis-ci.org/GondarOleg/hello.svg?branch=master" style="max-width:100%;"></a>
 <p>REST service hello, performing a search in the database of records by the regular expression.</p>
-<p>Supports the following commands:</p>
-<ol>
-    <li> /hello/save - save the test data;</li>
-    <li> /hello/contacts?nameFilter=regex - search using regular expressions;
-    </li>
-    <li> /hello/find_all - search for all records;</li>
-    <li> /hello/delete_all - delete all entries.</li>
-</ol>
+<p>Supports the following command:</p>
+<ul>
+    <li> /hello/contacts?nameFilter=regex - search using regular expression</li>
+</ul>
 <br>
 <p>1. Technologies used</p>
 <ul>
