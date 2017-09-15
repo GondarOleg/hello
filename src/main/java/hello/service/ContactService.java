@@ -30,9 +30,8 @@ public class ContactService {
         }
         for (Contact contact : allContactsList) {
             Matcher matcher = pattern.matcher(contact.getName());
-            System.out.println("contact: " + contact.getName());
-            System.out.println("pattern: " + pattern);
-            if (matcher.matches() && !contact.getName().equals(pattern)) {
+            System.out.println(pattern.toString());
+            if (matcher.matches() && !contact.getName().equals(pattern.toString())) {
                 contacts.add(contact);
             }
         }

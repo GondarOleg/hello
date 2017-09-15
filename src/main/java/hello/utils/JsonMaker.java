@@ -12,7 +12,7 @@ public class JsonMaker {
     private JsonMaker() {
     }
 
-    private static final String NEW_LINE = "<br>";
+    private static final String NEW_LINE = "\\n\\n";
     private static final String NAME_FILTER = "?nameFilter=";
     private static final String PAGE = "&page=";
 
