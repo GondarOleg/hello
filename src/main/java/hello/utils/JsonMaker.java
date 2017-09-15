@@ -2,6 +2,7 @@ package hello.utils;
 
 import com.google.gson.Gson;
 import hello.model.Contact;
+import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +38,9 @@ public class JsonMaker {
     }
 
     private static String makeJson(int pageNumber, int pageSize, int totalRecordCount, List<Contact> contacts) {
+        if (CollectionUtils.isEmpty(contacts)) {
+            return "No contacts found!";
+        }
         List<Contact> temp = new LinkedList<Contact>();
         int endIndex = 0;
         if (pageNumber * pageSize + pageSize >= totalRecordCount) {

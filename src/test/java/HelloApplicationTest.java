@@ -48,12 +48,11 @@ public class HelloApplicationTest {
     @Test
     public void testControllerSearch() throws Exception {
         contactService.save(new Contact("test"));
-        assertThat(controller.findByKey("[test]", 1, requestForTest)).isNotEmpty();
+        assertThat(controller.findByKey("(test)", 1, requestForTest)).isNotEmpty();
     }
 
     @Test
     public void testSearchResultEqualRegexNotReturned() throws NotFoundException, InvalidRequestException {
-        contactService.deleteAll();
         contactService.save(new Contact("^.*[aei].*$"));
         assertThat(controller.findByKey("^.*[aei].*$", 1, requestForTest)).isEqualToIgnoringCase("No contacts found!");
     }

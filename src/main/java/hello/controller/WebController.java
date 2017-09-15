@@ -36,23 +36,21 @@ public class WebController {
 //        contactService.save(new Contact("Contact4"));
 //        contactService.save(new Contact("Contact5"));
 //        contactService.save(new Contact("Contact6"));
-        contactService.save(new Contact("test"));
- //      contactService.save(new Contact("^.*[aei].*$"));
+  //      contactService.save(new Contact("test"));
+       contactService.save(new Contact("^.*[aei].*$"));
         return HttpStatus.OK;
     }
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public @ResponseBody
     String findByKey(@RequestParam(value = "nameFilter") String regex, @RequestParam(value = "page", required = false) Integer pageNum, HttpServletRequest request) throws NotFoundException, ErrorInRegexpException {
-        int pageNumber = 0;
-        int totalPages = 0;
-        int totalRecordCount = 0;
+
         try {
+            int pageNumber = 0;
+            int totalPages = 0;
+            int totalRecordCount = 0;
             Pattern pattern = Pattern.compile(regex);
             List<Contact> contacts = contactService.findContactsByRegex(pattern);
-            if (CollectionUtils.isEmpty(contacts)) {
-                return "No contacts found!";
-            }
             totalRecordCount = contacts.size();
             totalPages = (totalRecordCount % pageSize) == 0 ? totalRecordCount / pageSize : totalRecordCount / pageSize + 1;
             if (pageNum != null) {
@@ -61,6 +59,7 @@ public class WebController {
                 }
                 pageNumber = pageNum - 1;
             }
+
             return JsonMaker.makePaginatedJson(totalPages, pageNumber, pageSize, totalRecordCount, regex, request.getRequestURL().toString(), contacts);
         } catch (PatternSyntaxException ex) {
             throw new ErrorInRegexpException(ex.getDescription());
