@@ -32,7 +32,6 @@ public class WebController {
         int totalPages = 1;
         int totalRecordCount = 0;
         try {
-
             Pattern pattern = Pattern.compile(regex);
             List<Contact> contacts = contactService.findContactsByRegex(pattern);
             totalRecordCount = contacts.size();
@@ -45,7 +44,6 @@ public class WebController {
                 }
                 pageNumber = pageNum - 1;
             }
-
             return JsonMaker.makePaginatedJson(totalPages, pageNumber, pageSize, totalRecordCount, regex, request.getRequestURL().toString(), contacts);
         } catch (PatternSyntaxException ex) {
             throw new ErrorInRegexpException(ex.getDescription());
