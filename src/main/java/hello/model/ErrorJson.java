@@ -36,4 +36,12 @@ public class ErrorJson {
     public String getTrace() {
         return trace;
     }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
 }

@@ -26,7 +26,9 @@ public class HelloApplicationErrorController implements org.springframework.boot
 
     @RequestMapping(value = PATH)
     ErrorJson error(HttpServletRequest request, HttpServletResponse response) {
-        return new ErrorJson(response.getStatus(), getErrorAttributes(request, debug));
+        ErrorJson error = new ErrorJson(response.getStatus(), getErrorAttributes(request, debug));
+
+        return error;
     }
 
     public String getErrorPath() {

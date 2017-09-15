@@ -1,5 +1,6 @@
 import hello.HelloApplication;
 import hello.controller.WebController;
+import hello.exception.ErrorInRegexpException;
 import hello.model.Contact;
 import hello.service.ContactService;
 import org.junit.After;
@@ -16,6 +17,7 @@ import org.springframework.web.util.NestedServletException;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -42,7 +44,9 @@ public class HelloApplicationIntegrationTest {
     @Test
     public void testRequestShouldReturnMessageFromService() throws Exception {
         contactList.add(new Contact("test"));
-        when(contactService.findContactsByRegex("(test)")).thenReturn(contactList);
+        Pattern pattern = Pattern.compile("(test)");
+        when(contactService.findContactsByRegex(pattern)).thenReturn(contactList);
+        System.out.println(contactList.get(0).getName());
         this.mockMvc.perform(get("/hello/contacts?nameFilter=(test)")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("test")));
     }
@@ -50,7 +54,7 @@ public class HelloApplicationIntegrationTest {
     @Test
     public void testRequestShouldReturnNoContactsFound() throws Exception {
         contactList.clear();
-        when(contactService.findContactsByRegex("^.*[aei].*$")).thenReturn(contactList);
+        when(contactService.findContactsByRegex(Pattern.compile("^.*[aei].*$"))).thenReturn(contactList);
         this.mockMvc.perform(get("/hello/contacts?nameFilter=^.*[aei].*$")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("No contacts found!")));
     }
@@ -58,7 +62,7 @@ public class HelloApplicationIntegrationTest {
     @Test(expected = NestedServletException.class)
     public void testRequestPage0ShouldThrowException() throws Exception {
         contactList.add(new Contact("test"));
-        when(contactService.findContactsByRegex("(test)")).thenReturn(contactList);
+        when(contactService.findContactsByRegex(Pattern.compile("(test)"))).thenReturn(contactList);
         this.mockMvc.perform(get("/hello/contacts?nameFilter=(test)&page=0"));
     }
 }

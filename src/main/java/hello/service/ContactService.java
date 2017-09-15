@@ -4,15 +4,19 @@ import hello.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import hello.repo.ContactRepository;
+import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class ContactService {
 
     @Autowired
     ContactRepository contactRepository;
+    private List<Contact> allContactsList;
 
     public void save(Contact contact) {
         contactRepository.save(contact);
@@ -22,10 +26,14 @@ public class ContactService {
         return contactRepository.findAll();
     }
 
-    public List<Contact> findContactsByRegex(String regexForSearch) {
+    public List<Contact> findContactsByRegex(Pattern pattern) {
         List<Contact> contacts = new LinkedList<Contact>();
-        for (Contact contact : findAllContacts()) {
-            if (contact.getName().matches(regexForSearch) && !contact.getName().equals(regexForSearch)) {
+        if (CollectionUtils.isEmpty(allContactsList)) {
+            allContactsList = findAllContacts();
+        }
+        for (Contact contact : allContactsList) {
+            Matcher matcher = pattern.matcher(contact.getName());
+            if (matcher.matches() && !contact.getName().equals(pattern.toString())) {
                 contacts.add(contact);
             }
         }

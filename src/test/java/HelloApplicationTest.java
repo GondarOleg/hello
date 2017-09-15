@@ -2,8 +2,10 @@ import classesfortests.HttpServletRequestForTest;
 import hello.HelloApplication;
 import hello.controller.WebController;
 import hello.model.Contact;
+import hello.model.ErrorJson;
 import hello.service.ContactService;
 import javassist.NotFoundException;
+import javassist.tools.web.BadHttpRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +13,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.management.BadAttributeValueExpException;
+import javax.servlet.ServletException;
+import javax.xml.registry.InvalidRequestException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,8 +52,7 @@ public class HelloApplicationTest {
     }
 
     @Test
-    public void testSearchResultEqualRegexNotReturned() throws NotFoundException {
-
+    public void testSearchResultEqualRegexNotReturned() throws NotFoundException, InvalidRequestException {
         contactService.deleteAll();
         contactService.save(new Contact("^.*[aei].*$"));
         assertThat(controller.findByKey("^.*[aei].*$", 1, requestForTest)).isEqualToIgnoringCase("No contacts found!");
