@@ -16,24 +16,23 @@ public class ContactService {
 
     @Autowired
     ContactRepository contactRepository;
+
     private List<Contact> allContactsList;
 
     public void save(Contact contact) {
         contactRepository.save(contact);
     }
 
-    public List<Contact> findAllContacts() {
-        return contactRepository.findAll();
-    }
-
     public List<Contact> findContactsByRegex(Pattern pattern) {
         List<Contact> contacts = new LinkedList<Contact>();
         if (CollectionUtils.isEmpty(allContactsList)) {
-            allContactsList = findAllContacts();
+            allContactsList = contactRepository.findAll();
         }
         for (Contact contact : allContactsList) {
             Matcher matcher = pattern.matcher(contact.getName());
-            if (matcher.matches() && !contact.getName().equals(pattern.toString())) {
+            System.out.println("contact: " + contact.getName());
+            System.out.println("pattern: " + pattern);
+            if (matcher.matches() && !contact.getName().equals(pattern)) {
                 contacts.add(contact);
             }
         }

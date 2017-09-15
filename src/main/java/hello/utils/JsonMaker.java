@@ -38,9 +38,6 @@ public class JsonMaker {
     }
 
     private static String makeJson(int pageNumber, int pageSize, int totalRecordCount, List<Contact> contacts) {
-        if (CollectionUtils.isEmpty(contacts)) {
-            return "No contacts found!";
-        }
         List<Contact> temp = new LinkedList<Contact>();
         int endIndex = 0;
         if (pageNumber * pageSize + pageSize >= totalRecordCount) {
@@ -54,7 +51,10 @@ public class JsonMaker {
         return new Gson().toJson(temp);
     }
 
-    public static String makePaginatedJson(int totalPages, int pageNumber, int pageSize, int totalRecordCount, String regex, String url, List<Contact> contacts){
+    public static String makePaginatedJson(int totalPages, int pageNumber, int pageSize, int totalRecordCount, String regex, String url, List<Contact> contacts) {
+        if (CollectionUtils.isEmpty(contacts)) {
+            return "No contacts found!";
+        }
         return makePaginatedHeader(totalPages) + makeJson(pageNumber, pageSize, totalRecordCount, contacts) + makePaginatedFooter(totalPages, pageNumber, regex, url);
     }
 }
