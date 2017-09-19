@@ -23,10 +23,11 @@
 <p>2. To Run this project locally</p>
 <ul>
     <li>1. Download and install Virual Box;</li>
-    <li>2. Download and install Vagrant</li>
+    <li>2. Download and install Vagrant;</li>
     <li>3. Create a folder on a drive;</li>
     <li>4. Open a command promt, go to folder;</li>
-    <li>5. Execute command: vagrant init</li>
+    <li>5. Execute command:</li>
+    <p>vagrant init</p>
     <li>6. In a Vagrantfile replace content:</li>
     <br>
     <p>config.vm.box = "hashicorp/precise32"</p>
@@ -61,7 +62,7 @@
     <li>11. Clone the GIT repository on local drive (from system command prompt):</li>
     <br>
     <p>git clone https://github.com/GondarOleg/hello.git</p>
-    <li>Create a jar file for the project in your preferred development environment.</li>
+    <li>Create a jar file for the project in your preferred development environment;</li>
     <li>12. Login to Vagrant:</li>
     <br>
     <p>vagrant ssh</p>
