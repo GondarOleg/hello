@@ -27,6 +27,7 @@
     <li>3. Create a folder on a drive;</li>
     <li>4. Open a command promt, go to folder;</li>
     <li>5. Execute command:</li>
+    <br>
     <p>vagrant init</p>
     <li>6. In a Vagrantfile replace content:</li>
     <br>
