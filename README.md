@@ -63,11 +63,11 @@
     <li>11. Clone the GIT repository on local drive (from system command prompt):</li>
     <br>
     <p>git clone https://github.com/GondarOleg/hello.git</p>
-    <li>Create a jar file for the project in your preferred development environment;</li>
-    <li>12. Login to Vagrant:</li>
+    <li>12. Create a jar file for the project in your preferred development environment;</li>
+    <li>13. Login to Vagrant:</li>
     <br>
     <p>vagrant ssh</p>
-    <li>13. Start application:</li>
+    <li>14. Start application:</li>
     <br>
     <p>java -jar /vagrant/hello/target/hello-1.0.jar</p>
 </body>
